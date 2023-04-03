@@ -1,6 +1,10 @@
 const express = require('express');
+const axios = require('axios');
+const fetch = (...args) =>
+  import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
 const body_parser = require('body-parser');
+const { response } = require('express');
 
 // const client_id = process.env.CLIENT_ID;
 // const client_secret = process.env.CLIENT_SECRET;
@@ -18,7 +22,47 @@ app.get('/api', function(req, res) {
 });
 
 
+// Get user access_token
+app.get('/getAccessToken', async function (req, res) {
+  try {
+    const params = `client_id=${client_id}&client_secret=${client_secret}&code=${req.query.code}`;
+    await fetch(`https://github.com/login/oauth/access_token?${params}`,{
+      method: 'POST',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((data)=>{
+      // console.log(data)
+      res.json(data);
+    })
+  } catch (error) {
+    console.log(error)
+  }
+});
 
+
+// Get user data
+app.get('/getUserData', async function (req, res) {
+  console.log(req.get("Authorization"));
+  await fetch("https://api.github.com/user", {
+    method: "GET",
+    headers: {
+      "Authorization": req.get("Authorization")
+    }
+
+  }).then(response => {
+    return response.json();
+  }).then(data => {
+    console.log(data);
+    res.json(data);
+  });
+  
+});
+
+
+// Server 監聽
 app.listen(5000, function(){
   console.log('server running on http://localhost:5000')
 });
