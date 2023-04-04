@@ -1,0 +1,14 @@
+{
+  "explorer.confirmDelete": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "liveSassCompile.settings.generateMap": false,
+  "liveSassCompile.settings.formats": [
+    {
+        "format": "expanded",
+        "extensionName": ".css",
+        "savePath": "/client/src/styles/css"
+    }
+],
+  "liveSassCompile.settings.showAnnouncements": null,
+  
+}

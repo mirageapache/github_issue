@@ -62,7 +62,6 @@ app.get('/getUserData', async function (req, res) {
 // Get all issue list - (取得所有issues清單)
 app.get('/getIssueList', async function (req, res) {
   const params = req.query.q
-  console.log(params)
   await fetch(`https://api.github.com/search/issues?q=${params}`, {
     method: "GET",
     headers: {
