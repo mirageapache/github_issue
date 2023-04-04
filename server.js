@@ -68,7 +68,6 @@ app.get('/getIssueList', async function (req, res) {
     headers: {
       "Authorization": req.get("Authorization")
     },
-
   }).then(response => {
     return response.json();
   }).then(data => {
