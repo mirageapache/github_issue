@@ -22,7 +22,7 @@ app.get('/api', function(req, res) {
 });
 
 
-// Get user access_token
+// Get user access_token - (取得access token)
 app.get('/getAccessToken', async function (req, res) {
   try {
     const params = `client_id=${client_id}&client_secret=${client_secret}&code=${req.query.code}`;
@@ -43,23 +43,47 @@ app.get('/getAccessToken', async function (req, res) {
 });
 
 
-// Get user data
+// Get user data - (取得使用者資料)
 app.get('/getUserData', async function (req, res) {
-  console.log(req.get("Authorization"));
   await fetch("https://api.github.com/user", {
     method: "GET",
     headers: {
       "Authorization": req.get("Authorization")
     }
+  }).then(response => {
+    return response.json();
+  }).then(data => {
+    // console.log(data);
+    res.json(data);
+  }); 
+});
+
+
+// Get all issue list - (取得所有issues清單)
+app.get('/getIssueList', async function (req, res) {
+  const params = req.query.q
+  console.log(params)
+  await fetch(`https://api.github.com/search/issues?q=${params}`, {
+    method: "GET",
+    headers: {
+      "Authorization": req.get("Authorization")
+    },
 
   }).then(response => {
     return response.json();
   }).then(data => {
-    console.log(data);
+    // console.log(data);
     res.json(data);
-  });
-  
+  }); 
 });
+
+// Get single issue - (取得單一則issue資料)
+
+// Create issue - (建立issue)
+
+// Edit issue - (編輯issue)
+
+// Close issue - (刪除issue)
 
 
 // Server 監聽
