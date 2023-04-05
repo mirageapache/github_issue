@@ -17,11 +17,6 @@ let app = express();
 app.use(cors());
 app.use(body_parser.json());
 
-app.get('/api', function(req, res) {
-  res.send('link ok');
-});
-
-
 // Get user access_token - (取得access token)
 app.get('/getAccessToken', async function (req, res) {
   try {
@@ -41,7 +36,6 @@ app.get('/getAccessToken', async function (req, res) {
   }
 });
 
-
 // Get user data - (取得使用者資料)
 app.get('/getUserData', async function (req, res) {
   await fetch("https://api.github.com/user", {
@@ -55,7 +49,6 @@ app.get('/getUserData', async function (req, res) {
     res.json(data);
   }); 
 });
-
 
 // Get all issue list - (取得所有issues清單)
 app.get('/getIssueList', async function (req, res) {
@@ -158,6 +151,24 @@ app.get('/editIssue', async function (req, res) {
 });
 
 // Close issue - (刪除issue)
+app.get('/deleteIssue', async function (req, res) {
+  const username = req.query.username;
+  const repo = req.query.repo;
+  const number = req.query.number;
+  const raw = JSON.stringify({"state": "closed"});
+
+  await fetch(`https://api.github.com/repos/${username}/${repo}/issues/${number}`, {
+    method: "POST",
+    headers: {
+      "Authorization": req.get("Authorization")
+    },
+    body: raw
+  }).then(response => {    
+    return response.json();
+  }).then(data => {
+    res.json(data);
+  }); 
+});
 
 // Create label - (建立labels) 分三次執行
 app.get('/createLabels', async function (req, res) {
