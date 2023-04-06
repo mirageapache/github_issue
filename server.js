@@ -210,7 +210,7 @@ app.get('/addLabelsToIssue', async function (req, res) {
   }); 
 });
 
-// set label to issue - (在issue新增label)
+// set label to issue - (在issue 設定label)
 app.get('/setLabelsToIssue', async function (req, res) {
   const username = req.query.username;
   const repo = req.query.repo;
