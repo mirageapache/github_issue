@@ -170,7 +170,7 @@ app.get('/deleteIssue', async function (req, res) {
   }); 
 });
 
-// Create label - (建立labels) 分三次執行
+// Create label - (建立labels)
 app.get('/createLabels', async function (req, res) {
   const username = req.query.username;
   const repo = req.query.repo;
@@ -202,6 +202,26 @@ app.get('/addLabelsToIssue', async function (req, res) {
       "Authorization": req.get("Authorization")
     },
     labels: ["open","in_progress","done"]
+  }).then(response => {
+    return response.json();
+  }).then(data => {
+    res.json(data);
+  }); 
+});
+
+// set label to issue - (在issue新增label)
+app.get('/setLabelsToIssue', async function (req, res) {
+  const username = req.query.username;
+  const repo = req.query.repo;
+  const number = req.query.number;
+  const label = req.query.label;
+  const raw = JSON.stringify({"label":label});
+  await fetch(`https://api.github.com/repos/${username}/${repo}/issues/${number}/labels`, {
+    method: "PUT",
+    headers: {
+      "Authorization": req.get("Authorization")
+    },
+    body: raw
   }).then(response => {
     return response.json();
   }).then(data => {
