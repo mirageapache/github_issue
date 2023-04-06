@@ -195,13 +195,14 @@ app.get('/addLabelsToIssue', async function (req, res) {
   const username = req.query.username;
   const repo = req.query.repo;
   const number = req.query.number;
-  console.log(number)
+  const raw = JSON.stringify({"labels": ["open"]});
+
   await fetch(`https://api.github.com/repos/${username}/${repo}/issues/${number}/labels`, {
     method: "POST",
     headers: {
       "Authorization": req.get("Authorization")
     },
-    labels: ["open","in_progress","done"]
+    body: raw
   }).then(response => {
     return response.json();
   }).then(data => {
@@ -214,8 +215,9 @@ app.get('/setLabelsToIssue', async function (req, res) {
   const username = req.query.username;
   const repo = req.query.repo;
   const number = req.query.number;
-  const label = req.query.label;
-  const raw = JSON.stringify({"label":label});
+  const label = req.query.label.toLowerCase();
+  const raw = JSON.stringify({"labels":[label]});
+  
   await fetch(`https://api.github.com/repos/${username}/${repo}/issues/${number}/labels`, {
     method: "PUT",
     headers: {
