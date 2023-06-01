@@ -251,5 +251,5 @@ app.get('/getRepoList', async function (req, res) {
 
 // Server 監聽
 app.listen(5000, function(){
-  console.log('server running on http://localhost:5000')
+  console.log('express server is online!')
 });
