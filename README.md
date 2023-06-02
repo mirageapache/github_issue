@@ -34,7 +34,7 @@ npm install
 3.啟動伺服器
 
 ```
-npm run server
+npm start
 ```
 
 4.伺服器運行
