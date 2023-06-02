@@ -1,11 +1,12 @@
-# Github Issue Project
+# Github Issue (Server) Project
 
 ## 專案說明
 
 本系統為簡易版 Github issue 伺服器專案，使用者可以 Github 帳號登入後瀏覽個人 issue 清單，另有新增、修改、刪除等功能
 
-- 本系統採用 React 框架開發，請使用 Client 端專案開始使用
-  (Client 端專案連結：https://github.com/mirageapache/github_issue_client.git)
+- 本系統採用 Express 開發，並部署至https://github-issue-server.onrender.com
+
+- Client 端專案連結：https://github.com/mirageapache/github_issue_client.git
 
 ## 環境設置
 
